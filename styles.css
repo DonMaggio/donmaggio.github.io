@@ -11,7 +11,8 @@ body{
     font-family: Rajdhani, sans-serif;
     font-weight: 500;
     color: var(--text-color);
-    font-size: 1.5rem;
+    font-size: calc(1.5rem + 0.5vw); /* Ajustar tamaño de fuente en pantallas más grandes */
+    max-width: 100vw; /* Nueva linea */
     margin: 0;
     padding: 0;
     background: linear-gradient(220deg, rgba(165,193,169,1) 0%, rgba(197,219,200,1) 18%, rgba(255,243,232,1) 50%, rgba(255,249,243,1) 62%);
@@ -37,11 +38,11 @@ body{
 }
 
 .header__nav{
-    padding: 10px 50px ;
+    padding: 10px 20px; /* Reducir en pantallas pequeñas, antes padding: 10px 50px ;*/ 
     margin: 0 auto;
-    background-color: #fffbf1dd;
+    background-color: rgba(255, 251, 241, 0.9);
     border-radius: 20px;
-    width: clamp(350px, 50%, 500px)
+    width: 100%; /* Eliminar límites en el ancho antes width: clamp(350px, 50%, 500px) */
 }
 
 .header__nav-list{
@@ -69,10 +70,9 @@ body{
 /*    Presentacion Style    */
 
 .general{
-    
     display: grid;
-    grid-template-columns: 90dvw;
-    grid-template-rows: 0.85fr 0.40fr 0.7fr 1fr 0.50fr 0.84fr;  
+    grid-template-columns: 100%; /* Asegurarse que ocupa todo el ancho en móvil antes grid-template-columns: 90dvw; */ 
+    grid-template-rows: minmax(auto, 1fr); /* Las filas se ajustan a la altura de contenido antes grid-template-rows: 0.85fr 0.40fr 0.7fr 1fr 0.50fr 0.84fr;  */
     row-gap: 5px;
     justify-content: space-evenly;
     position: relative;
@@ -89,7 +89,7 @@ body{
 
 h1{
     font-family: "Titillium Web", sans-serif;
-    font-size: 7rem;
+    font-size: clamp(2rem, 5vw, 7rem); /* Tamaño adaptable al viewport antes font-size: 7rem; */ 
     font-weight: 600;
     text-align: center;
     color: #095e50;
@@ -157,9 +157,10 @@ h3{
     .general{
         grid-template-rows: 0.6fr 0.40fr 0.7fr 1fr 0.50fr 0.84fr; 
     }
-    .about__box, .about2__box{
-        display: flex;
-        flex-direction: column
+
+    .about__box,
+    .about2__box {
+        flex-direction: column; /* Asegurar que la dirección sea columna en pantallas más pequeñas */
     }
 
     .about__imgbox{
@@ -168,11 +169,10 @@ h3{
         padding-top: 20px;
         padding-left: 10px;
     }
+
     h3 {
         padding: 0;
     }
-
-
 }
 
 /*   PROJETS STYLES   */
@@ -190,8 +190,8 @@ h3{
 
 
 h2{
-    font-family: "Titillium Web"sans-serif;
-    font-size: 5rem;
+    font-family: "Titillium Web", sans-serif;
+    font-size: clamp(1.5rem, 4vw, 5rem); /* antes font-size: 5rem; */
     font-weight: 600;
     text-align: center;
     color: #095e50;
@@ -206,7 +206,7 @@ h2{
 
 .cardcontainer{
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Las tarjetas se ajustan automáticamente antes grid-template-columns: repeat(auto-fill,minmax(250px,1fr)); */
     justify-content: space-between;
     column-gap: 20px;
     width: 100%;
@@ -509,3 +509,38 @@ h2{
     height: .8em;
 }
 
+/* para hacer ajustes en pantallas muy pequeñas, como teléfonos móviles. */
+
+@media (max-width: 768px) {
+    .header__nav {
+        padding: 10px; /* Reducir padding en móviles */
+    }
+
+    .about, .about2 {
+        max-width: 100%; /* Ocupan todo el ancho de la pantalla */
+    }
+
+    .about__imgbox, .about2__imgbox {
+        padding-left: 0; /* Eliminar padding en móviles */
+        height: 50vh; /* Altura ajustada */
+    }
+
+    .card:first-child {
+        grid-column: span 1; /* Ajustar tamaño de primera tarjeta en móviles */
+        grid-row: span 1;
+    }
+
+    h1, h2, h3 {
+        font-size: clamp(1.5rem, 4vw, 4rem); /* Ajustar títulos en pantallas pequeñas */
+    }
+
+    .contact__logos {
+        flex-direction: column; /* Cambiar a una sola columna en pantallas pequeñas */
+        width: 100%; /* Ajustar el ancho */
+    }
+
+    .contact__logos-item {
+        width: 4em; /* Aumentar tamaño en móviles */
+        height: 4em;
+    }
+}
